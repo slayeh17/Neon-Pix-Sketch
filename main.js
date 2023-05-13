@@ -1,24 +1,21 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+const canvas = document.querySelector(".canvas");
+const slider = document.querySelector("#grid-slider");
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
 
-setupCounter(document.querySelector('#counter'))
+function addCells() {
+  const cell = document.createElement("div");
+  cell.classList.add("cell");
+  canvas.appendChild(cell);
+}
+
+function createCells(numOfCells) {
+  canvas.innerHTML = "";
+  canvas.style.cssText = `grid-template-columns: repeat(${numOfCells}, 1fr)`;
+  for(let i=0; i<numOfCells; i++) {
+    for(let j=0; j<numOfCells; j++)
+    addCells();
+  }
+}
+createCells(slider.value);
+slider.addEventListener('input', () => createCells(slider.value));

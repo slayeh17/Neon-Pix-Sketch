@@ -4,10 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Neon-Pix-Sketch</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="grid-container">
+      <header>Neon-Pix-Sketch</header>
+      <div class="sidebar">
+        <input type="color" name="color-picker" id="color-picker" value="222222">
+        <button class="mono-color">Mono Color Mode</button>
+        <button class="multi-color">Multi Color Mode</button>
+        <button class="eraser">Eraser</button>
+        <button class="all-clear">All clear</button>
+        <input type="range" name="slider" id="grid-slider" value="16" min="1" max="100">
+      </div>
+      <div class="canvas"></div>
+      <footer>Made by <a href="https://www.github.com/slayeh17">Debak Roy</a></footer>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
