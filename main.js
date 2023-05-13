@@ -53,7 +53,7 @@ function addCells() {
 }
 
 function createCells(numOfCells) {
-  range.innerHTML = numOfCells;
+  range.innerHTML =  `${numOfCells} x ${numOfCells}` ;
   canvas.innerHTML = "";
   canvas.style.cssText = `grid-template-columns: repeat(${numOfCells}, 1fr)`;
   for (let i = 0; i < numOfCells; i++) {
