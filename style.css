@@ -2,10 +2,15 @@
   box-sizing: border-box;
 }
 
+* {
+  touch-action: none;
+}
+
 body {
   margin: 0;
   /* background: url(public/brick-wall.png); */
   min-height: 100vh;
+  border: 20px solid black;
 }
 
 .grid-container {
@@ -17,6 +22,8 @@ body {
 .sidebar {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 1em;
 }
 
 .canvas {
@@ -28,4 +35,35 @@ body {
 
 .cell {
   border: 1px solid rgba(124, 123, 123, 0.3);
+  cursor: pointer;
+  -webkit-user-drag: none;
+}
+
+.slider-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.range {
+  width: 30px;
+  height: 30px;
+  border: 2px solid red;
+  border-radius: 5px;
+}
+
+#grid-slider {
+  width: 200px;
+}
+
+.range {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+button {
+  width: 150px;
+  height: 30px;
+  font-size: 15px;
 }

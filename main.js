@@ -1,7 +1,50 @@
-import './style.css'
+import "./style.css";
+
 const canvas = document.querySelector(".canvas");
 const slider = document.querySelector("#grid-slider");
+const range = document.querySelector(".range");
+const monoColorMode = document.querySelector(".mono-color");
+const multiColorMode = document.querySelector(".multi-color");
+const eraser = document.querySelector(".eraser");
+const allClear = document.querySelector(".all-clear");
+const colorPicker = document.querySelector("#color-picker");
+let color = colorPicker.value;
 
+allClear.addEventListener("click", () => {
+  const cells = document.querySelectorAll(".cell");
+  for(let i=0; i<cells.length; i++)
+  cells[i].style.backgroundColor = "white";
+});
+
+colorPicker.addEventListener("input", () => {
+  color = colorPicker.value;
+});
+
+monoColorMode.addEventListener("click", () => {
+  color = colorPicker.value;
+  colorCells();
+});
+
+eraser.addEventListener("click", () => erase());
+
+function erase() {
+  let isErasing = false;
+
+  canvas.addEventListener("mousedown", (event) => {
+    event.target.style.backgroundColor = "white";
+    isErasing = true;
+  });
+
+  canvas.addEventListener("mouseup", () => {
+    isErasing = false;
+  });
+
+  canvas.addEventListener("mousemove", (event) => {
+    if (isErasing && event.target.classList.contains("cell")) {
+      event.target.style.backgroundColor = "white";
+    }
+  });
+}
 
 function addCells() {
   const cell = document.createElement("div");
@@ -10,12 +53,33 @@ function addCells() {
 }
 
 function createCells(numOfCells) {
+  range.innerHTML = numOfCells;
   canvas.innerHTML = "";
   canvas.style.cssText = `grid-template-columns: repeat(${numOfCells}, 1fr)`;
-  for(let i=0; i<numOfCells; i++) {
-    for(let j=0; j<numOfCells; j++)
-    addCells();
+  for (let i = 0; i < numOfCells; i++) {
+    for (let j = 0; j < numOfCells; j++) addCells();
   }
+  colorCells();
 }
+
 createCells(slider.value);
-slider.addEventListener('input', () => createCells(slider.value));
+slider.addEventListener("input", () => createCells(slider.value));
+
+function colorCells() {
+  let isColoring = false;
+
+  canvas.addEventListener("mousedown", (event) => {
+    event.target.style.backgroundColor = color;
+    isColoring = true;
+  });
+
+  canvas.addEventListener("mouseup", () => {
+    isColoring = false;
+  });
+
+  canvas.addEventListener("mousemove", (event) => {
+    if (isColoring && event.target.classList.contains("cell")) {
+      event.target.style.backgroundColor = color;
+    }
+  });
+}
