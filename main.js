@@ -8,20 +8,27 @@ const multiColorMode = document.querySelector(".multi-color");
 const eraser = document.querySelector(".eraser");
 const allClear = document.querySelector(".all-clear");
 const colorPicker = document.querySelector("#color-picker");
-let color = colorPicker.value;
+const buttons = document.querySelectorAll("#btn");
+let color = "#bada55";
+let colorMono = "#bada55";
 
 allClear.addEventListener("click", () => {
   const cells = document.querySelectorAll(".cell");
-  for(let i=0; i<cells.length; i++)
-  cells[i].style.backgroundColor = "white";
+  for (let i = 0; i < cells.length; i++)
+    cells[i].style.cssText = "background-color: #333333;";
 });
 
+multiColorMode.addEventListener("click", () => {
+  multiColorCells();
+})
+
 colorPicker.addEventListener("input", () => {
-  color = colorPicker.value;
+  color = colorPicker.value;  
+  colorMono = colorPicker.value;
+  console.log(color);
 });
 
 monoColorMode.addEventListener("click", () => {
-  color = colorPicker.value;
   colorCells();
 });
 
@@ -31,7 +38,7 @@ function erase() {
   let isErasing = false;
 
   canvas.addEventListener("mousedown", (event) => {
-    event.target.style.backgroundColor = "white";
+    event.target.style.backgroundColor = "#333333";
     isErasing = true;
   });
 
@@ -39,9 +46,9 @@ function erase() {
     isErasing = false;
   });
 
-  canvas.addEventListener("mousemove", (event) => {
+  canvas.addEventListener("mouseover", (event) => {
     if (isErasing && event.target.classList.contains("cell")) {
-      event.target.style.backgroundColor = "white";
+      event.target.style.backgroundColor = "#333333";
     }
   });
 }
@@ -53,7 +60,7 @@ function addCells() {
 }
 
 function createCells(numOfCells) {
-  range.innerHTML =  `${numOfCells} x ${numOfCells}` ;
+  range.innerHTML = `${numOfCells} x ${numOfCells}`;
   canvas.innerHTML = "";
   canvas.style.cssText = `grid-template-columns: repeat(${numOfCells}, 1fr)`;
   for (let i = 0; i < numOfCells; i++) {
@@ -69,6 +76,29 @@ function colorCells() {
   let isColoring = false;
 
   canvas.addEventListener("mousedown", (event) => {
+    event.target.style.cssText = `background-color: ${colorMono};`
+    isColoring = true;
+  });
+
+  canvas.addEventListener("mouseup", () => {
+    isColoring = false;
+  });
+
+  canvas.addEventListener("mouseover", (event) => {
+    if (isColoring && event.target.classList.contains("cell")) {
+      event.target.style.cssText = `background-color: ${colorMono};`
+    }
+  });
+}
+
+function multiColorCells() {
+  let isColoring = false;
+
+  canvas.addEventListener("mousedown", (event) => {
+    const red = Math.floor(Math.random() * 255);
+    const green = Math.floor(Math.random() * 255);
+    const blue = Math.floor(Math.random() * 255);
+    color = `rgb(${red}, ${green}, ${blue})`;
     event.target.style.backgroundColor = color;
     isColoring = true;
   });
@@ -77,9 +107,22 @@ function colorCells() {
     isColoring = false;
   });
 
-  canvas.addEventListener("mousemove", (event) => {
+  canvas.addEventListener("mouseover", (event) => {
     if (isColoring && event.target.classList.contains("cell")) {
+      const red = Math.floor(Math.random() * 255);
+      const green = Math.floor(Math.random() * 255);
+      const blue = Math.floor(Math.random() * 255);
+      color = `rgb(${red}, ${green}, ${blue})`;
       event.target.style.backgroundColor = color;
     }
   });
+}
+
+for(let i=0; i<buttons.length; i++) {
+  buttons[i].addEventListener("click", () => {
+    for(let i=0; i<buttons.length; i++) {
+      buttons[i].classList.remove("active");
+    }
+    buttons[i].classList.add("active");
+  })
 }
