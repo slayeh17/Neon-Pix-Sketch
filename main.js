@@ -1,5 +1,3 @@
-import "./style.css";
-
 const canvas = document.querySelector(".canvas");
 const slider = document.querySelector("#grid-slider");
 const range = document.querySelector(".range");
