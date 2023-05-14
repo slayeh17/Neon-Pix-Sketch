@@ -25,7 +25,6 @@ multiColorMode.addEventListener("click", () => {
 colorPicker.addEventListener("input", () => {
   color = colorPicker.value;  
   colorMono = colorPicker.value;
-  console.log(color);
 });
 
 monoColorMode.addEventListener("click", () => {
